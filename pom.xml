@@ -3,7 +3,7 @@
     <groupId>net.gnomeffinway.donoregistry</groupId>
     <artifactId>DonoRegistry</artifactId>
     <version>0.1</version>
-    <name>PrefixSwap</name>
+    <name>DonoRegistry</name>
     <url>https://github.com/GnomeffinWay/DonoRegistry</url>
     <issueManagement>
         <system>GitHub</system>
@@ -28,8 +28,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -63,6 +63,14 @@
             <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/content/groups/public/</url>
         </repository>
+		<repository>
+			<id>everything</id>
+			<url>http://repo.citizensnpcs.com</url>
+		</repository>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>http://maven.sk89q.com/repo/</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -72,11 +80,30 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+		<dependency>
+			<groupId>net.citizensnpcs</groupId>
+			<artifactId>citizens</artifactId>
+			<version>2.0.7-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+   		<dependency>
+      		<groupId>com.earth2me</groupId>
+      		<artifactId>Essentials</artifactId>
+      		<version>2.9.799</version>
+      		<scope>system</scope>
+			<systemPath>${basedir}/src/main/resources/Essentials.jar</systemPath>
+    	</dependency>
    		<dependency>
       		<groupId>junit</groupId>
       		<artifactId>junit</artifactId>
       		<version>3.8.1</version>
       		<scope>test</scope>
+    	</dependency>
+   		<dependency>
+      		<groupId>com.sk89q</groupId>
+      		<artifactId>worldguard</artifactId>
+      		<version>5.7.1-SNAPSHOT</version>
+      		<scope>provided</scope>
     	</dependency>
     </dependencies>
     <properties>

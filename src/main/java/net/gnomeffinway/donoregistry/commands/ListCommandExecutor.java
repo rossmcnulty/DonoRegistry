@@ -10,7 +10,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class ListCommandExecutor extends DonoRegistryCommand implements CommandExecutor {
 	
@@ -23,15 +22,14 @@ public class ListCommandExecutor extends DonoRegistryCommand implements CommandE
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		if(!(sender instanceof Player) || sender==null){
-			sender.sendMessage(COULD_NOT_FIND_PLAYER);
+		if(sender==null){
 			return true;
 		}
 				
 		List<DonorRecord> list = DonoRegistry.getManager().getRecords();
 		
-		if(list==null){
-			sender.sendMessage(COULD_NOT_FIND_PLAYER);
+		if(list==null || list.size()==0){
+			sender.sendMessage(DONOR_LIST_EMPTY);
 			return true;
 		}
 		
@@ -43,7 +41,7 @@ public class ListCommandExecutor extends DonoRegistryCommand implements CommandE
 		while(iterator.hasNext()) {
 			DonorRecord record = iterator.next();
 			
-			message += ChatColor.RED + "#" + ChatColor.WHITE + record.getId() + ": " + ChatColor.GRAY + record.getTarget();
+			message += ChatColor.RED + "#" + ChatColor.WHITE + record.getId() + ": " + ChatColor.GOLD + record.getTarget()+"\n";
 		
 		}
 		

@@ -2,9 +2,8 @@ package net.gnomeffinway.donoregistry.api;
 
 import java.util.List;
 
+import net.gnomeffinway.donoregistry.Donor;
 import net.gnomeffinway.donoregistry.DonorRecord;
-import net.gnomeffinway.donoregistry.Rank;
-
 
 public interface RegistryManager {
 	
@@ -12,7 +11,7 @@ public interface RegistryManager {
 
 	public DonorRecord getRecord(String playerName);
 	
-	public int addRecord(String targetName, String region, int npcs, String warp, String others, Rank rank);
+	public int addRecord(Donor donor);
 	
 	public void delRecord(String targetName);
 

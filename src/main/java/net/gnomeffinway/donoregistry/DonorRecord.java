@@ -39,7 +39,7 @@ public class DonorRecord {
 
 	@NotNull
 	@Column(name="npcs")
-	private int npcs;
+	private String npcs;
 
 	@Enumerated
 	@Column(name="rank")
@@ -85,11 +85,11 @@ public class DonorRecord {
 		this.others = others;
 	}
 	
-	public int getNPCs() {
+	public String getNpcs() {
 		return npcs;
 	}
 
-	public void setNPCs(int npcs) {
+	public void setNpcs(String npcs) {
 		this.npcs = npcs;
 	}
 

@@ -1,0 +1,34 @@
+name: DonoRegistry
+main: net.gnomeffinway.donoregistry.DonoRegistry
+version: 0.1
+author: GnomeffinWay
+database: true
+
+depend: [WorldGuard,Citizens,Essentials]
+
+commands:
+    donoregistry:
+        description: DonoRegistry root command
+        aliases: dr
+        usage: |
+            /<command>
+permissions:
+    donoregistry.*:
+        description: Gives access to all DonoRegistry commands
+        children:
+            donoregistry.info: true
+            donoregistry.list: true
+            donoregistry.new: true
+            donoregistry.set: true
+    donoregistry.info:
+        description: Gives stored donor information
+        default: op
+    donoregistry.list:
+        description: Lists donor records
+        default: op
+    donoregistry.new:
+        description: Creates a new donor record
+        default: op
+    donoregistry.set:
+        description: Sets a value of a donor's record
+        default: op

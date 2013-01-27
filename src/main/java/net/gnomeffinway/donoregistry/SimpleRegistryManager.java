@@ -22,20 +22,19 @@ public class SimpleRegistryManager implements RegistryManager {
 	}
 
 	@Override
-	public int addRecord(String targetName, String region, int npcs, String warp, String others, Rank rank) {
+	public int addRecord(Donor donor) {
 		int newDonorId = getRecords().size()+1;
 		
-		//Should alphabetize this for organization
-
 		DonorRecord record = new DonorRecord();
-		record.setTarget(targetName);
-		record.setRegion(region);
-		record.setNPCs(npcs);
-		record.setOthers(others);
-		record.setWarp(warp);
+		record.setId(newDonorId);
+		record.setTarget(donor.getName());
+		record.setRegion(donor.getRegion());
+		record.setNpcs(donor.getNPCs());
+		record.setOthers(donor.getOthers());
+		record.setWarp(donor.getWarp());
 		record.setTime(System.currentTimeMillis());
-		record.setRank(rank);
-
+		record.setRank(donor.getRank());
+		
 		plugin.getDatabase().save(record);
 
 		return newDonorId;

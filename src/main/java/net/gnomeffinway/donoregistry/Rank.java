@@ -13,15 +13,15 @@ public enum Rank {
 		return value;
 	}
 
-	public static Rank fromInt(int value) {
+	public static Rank fromString(String value) {
 		switch (value) {
-		case 1:
+		case "Minstrel":
 			return MINSTREL;
-		case 2:
+		case "Baron":
 			return BARON;
-		case 3:
+		case "Duke":
 			return DUKE;
-		case 4:
+		case "Archduke":
 			return ARCHDUKE;
 		default:
 			return null;
