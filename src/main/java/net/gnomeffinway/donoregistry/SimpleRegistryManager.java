@@ -20,6 +20,11 @@ public class SimpleRegistryManager implements RegistryManager {
 	public DonorRecord getRecord(String playerName) {
 		return plugin.getDatabase().find(DonorRecord.class).where().ieq("target", playerName).findUnique();
 	}
+	
+	@Override
+	public DonorRecord getRecord(int id) {
+		return plugin.getDatabase().find(DonorRecord.class).where().idEq(id).findUnique();
+	}
 
 	@Override
 	public int addRecord(Donor donor) {

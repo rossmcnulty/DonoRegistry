@@ -11,6 +11,8 @@ public interface RegistryManager {
 
 	public DonorRecord getRecord(String playerName);
 	
+	public DonorRecord getRecord(int id);
+	
 	public int addRecord(Donor donor);
 	
 	public void delRecord(String targetName);

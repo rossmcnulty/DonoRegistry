@@ -27,4 +27,19 @@ public enum Rank {
 			return null;
 		}
 	}
+	
+	public String toString() {
+		switch (value) {
+		case 1:
+			return "Minstrel";
+		case 2:
+			return "Baron";
+		case 3:
+			return "Duke";
+		case 4:
+			return "Archduke";
+		default:
+			return null;
+		}
+	}
 }

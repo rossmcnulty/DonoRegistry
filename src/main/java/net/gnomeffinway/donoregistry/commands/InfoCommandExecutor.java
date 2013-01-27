@@ -2,6 +2,7 @@ package net.gnomeffinway.donoregistry.commands;
 
 import net.gnomeffinway.donoregistry.DonoRegistry;
 import net.gnomeffinway.donoregistry.DonorRecord;
+import net.gnomeffinway.donoregistry.util.Checks;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -29,14 +30,20 @@ public class InfoCommandExecutor extends DonoRegistryCommand implements CommandE
 			return true;
 		}
 		
-		String target = findTarget(args[1]);
+		DonorRecord record;
 		
-		if(target == null) {
-			sender.sendMessage(COULD_NOT_FIND_PLAYER);
-			return true;
+		if(!Checks.numCheck(args[1])) {
+			String target = findTarget(args[1]);
+			
+			if(target == null) {
+				sender.sendMessage(COULD_NOT_FIND_PLAYER);
+				return true;
+			}
+			record=DonoRegistry.getManager().getRecord(target);
+		} else {
+			record=DonoRegistry.getManager().getRecord(Integer.parseInt(args[1]));
 		}
 		
-		DonorRecord record = DonoRegistry.getManager().getRecord(sender.getName());
 		
 		if(record == null){
 			sender.sendMessage(COULD_NOT_FIND_DONOR);
@@ -45,8 +52,7 @@ public class InfoCommandExecutor extends DonoRegistryCommand implements CommandE
 	
 		String message = "";
 				
-		message += ChatColor.GOLD + "----- " + ChatColor.AQUA + target + ChatColor.GOLD + " -----";
-		message += "\n" + ChatColor.GOLD + "ID: " + ChatColor.WHITE + record.getId();
+		message += ChatColor.GOLD + "----- " + ChatColor.RED + "#"+ChatColor.WHITE+ record.getId()+ChatColor.AQUA +" "+ record.getTarget() + ChatColor.GOLD + " -----";
 		message += "\n" + ChatColor.GOLD + "Rank: "+ChatColor.WHITE + record.getRank();
 		message += "\n" + ChatColor.GOLD + "Region: " + ChatColor.WHITE + record.getRegion();
 		message += "\n" + ChatColor.GOLD + "Warp: " + ChatColor.WHITE + record.getWarp();

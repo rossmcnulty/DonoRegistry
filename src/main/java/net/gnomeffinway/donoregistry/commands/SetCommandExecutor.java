@@ -31,15 +31,21 @@ public class SetCommandExecutor extends DonoRegistryCommand implements CommandEx
 			return true;
 		}
 		
-		String target = findTarget(args[1]);
+		DonorRecord record;
 		
-		if(target == null) {
-			sender.sendMessage(COULD_NOT_FIND_PLAYER);
-			return true;
+		
+		if(!Checks.numCheck(args[1])) {
+			String target = findTarget(args[1]);
+			
+			if(target == null) {
+				sender.sendMessage(COULD_NOT_FIND_PLAYER);
+				return true;
+			}
+			record=DonoRegistry.getManager().getRecord(target);
+		} else {
+			record=DonoRegistry.getManager().getRecord(Integer.parseInt(args[1]));
 		}
-		
-		DonorRecord record = DonoRegistry.getManager().getRecord(sender.getName());
-		
+				
 		if(record == null){
 			sender.sendMessage(COULD_NOT_FIND_DONOR);
 			return true;
@@ -47,6 +53,7 @@ public class SetCommandExecutor extends DonoRegistryCommand implements CommandEx
 	
 		if(args[2].equalsIgnoreCase("npcs") || args[2].equalsIgnoreCase("npc")) {
 			String npcs = args[3];
+			String npcsSpaced="";
 			String[] regex=npcs.split(",");
 			int npc;
 			
@@ -61,16 +68,21 @@ public class SetCommandExecutor extends DonoRegistryCommand implements CommandEx
 					sender.sendMessage(COULD_NOT_FIND_NPC);
 					return true;
 				}
+				if(x<regex.length-1)
+					npcsSpaced+=regex[x]+", ";
+				else
+					npcsSpaced+=regex[x];
 			}
 			
-			record.setNpcs(npcs);
+			record.setNpcs(npcsSpaced);
 			plugin.getDatabase().save(record);
-			sender.sendMessage(ChatColor.GOLD + target + "'s record updated with "+npcs);
+			sender.sendMessage(ChatColor.GOLD + record.getTarget() + "'s record updated with "+npcsSpaced);
 
 		}
 		
 		if(args[2].equalsIgnoreCase("others") || args[2].equalsIgnoreCase("other")) {
 			String others=args[3];
+			String othersSpaced="";
 			String[] regex=others.split(",");
 			String other="";
 			
@@ -80,11 +92,15 @@ public class SetCommandExecutor extends DonoRegistryCommand implements CommandEx
 					sender.sendMessage(COULD_NOT_FIND_PLAYER);
 					return true;
 				}
+				if(x<regex.length-1)
+					othersSpaced+=regex[x]+", ";
+				else
+					othersSpaced+=regex[x];
 			}
 			
-			record.setOthers(others);
+			record.setOthers(othersSpaced);
 			plugin.getDatabase().save(record);
-			sender.sendMessage(ChatColor.GOLD + target + "'s record updated with "+others);
+			sender.sendMessage(ChatColor.GOLD + record.getTarget() + "'s record updated with "+othersSpaced);
 		}
 		
 		if(args[2].equalsIgnoreCase("rank")) {
@@ -97,33 +113,38 @@ public class SetCommandExecutor extends DonoRegistryCommand implements CommandEx
 			
 			record.setRank(rank);
 			plugin.getDatabase().save(record);
-			sender.sendMessage(ChatColor.GOLD + target + "'s record updated with "+rank);
+			sender.sendMessage(ChatColor.GOLD + record.getTarget() + "'s record updated with "+rank);
 		}
 		
 		if(args[2].equalsIgnoreCase("region")) {
 			String region=args[3];
+			String regionCaps="";
 			
 			if(!Checks.regionCheck(region)) {
 				sender.sendMessage(COULD_NOT_FIND_REGION);
 				return true;
 			}
 			
-			record.setRegion(region);
+			regionCaps=region.substring(0,1).toUpperCase() + region.substring(1,region.length());
+			
+			record.setRegion(regionCaps);
 			plugin.getDatabase().save(record);
-			sender.sendMessage(ChatColor.GOLD + target + "'s record updated with "+region);
+			sender.sendMessage(ChatColor.GOLD + record.getTarget() + "'s record updated with "+regionCaps);
 		}
 		
 		if(args[2].equalsIgnoreCase("warp") || args[2].equalsIgnoreCase("warps")) {
 			String warp=args[3];
+			String warpCaps="";
 			
 			if(!Checks.warpCheck(warp)) {
 				sender.sendMessage(COULD_NOT_FIND_WARP);
 				return true;
 			}
 			
-			record.setWarp(warp);
+			warpCaps=warp.substring(0,1).toUpperCase() + warp.substring(1,warp.length());
+			record.setWarp(warpCaps);
 			plugin.getDatabase().save(record);
-			sender.sendMessage(ChatColor.GOLD + target + "'s record updated with "+warp);
+			sender.sendMessage(ChatColor.GOLD + record.getTarget() + "'s record updated with "+warpCaps);
 		}	
 		return true;
 	}
